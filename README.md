@@ -11,9 +11,9 @@ It is my project for master thesis in MIPT. Now it is my present work for PhD th
 
 To install this project, simply use the following:
 
-> $ python setup.py develop
+Open your terminal and then do
 
-From this on, the package will be seen from anywhere on the local machine. When finished, launch:
+> $ git clone https://github.com/VilmenAbramian/RFID_sim
 
 > $ python setup.py develop --uninstall
 
