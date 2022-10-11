@@ -1,13 +1,13 @@
-# Python Open Network Simulator (PyONS)
+# Python Open Network Simulator
 
 The package provides the kernel for discrete-event simulations in Python 3 language.
 
 It is designed to be suitable for various tasks in mind, while the first objective is 
 to simulate networks and queueing systems.
 
-## Working in development mode
+## Completed graduation project
 
-It is my project for master thesis in MIPT. Now it is my present work for PhD thesis.
+It is my project for master thesis in MIPT.
 
 To install this project, simply use the following:
 
