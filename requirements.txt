@@ -1,0 +1,9 @@
+wheel
+click
+pandas
+numpy
+matplotlib
+scipy
+tabulate
+tqdm
+-e .
