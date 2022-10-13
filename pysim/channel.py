@@ -168,7 +168,7 @@ def reflection(*, cosine, polarization, permittivity, conductivity, wavelen, **k
 #
 def two_ray_pathloss(*, time, ground_reflection, wavelen,
                      tx_pos, tx_dir_theta, tx_dir_phi, tx_velocity, tx_rp,
-                     rx_pos, rx_dir_theta, rx_dir_phi, rx_velocity, rx_rp, log=False, **kwargs):
+                     rx_pos, rx_dir_theta, rx_dir_phi, rx_velocity, rx_rp, log=False, crutch = False, **kwargs):
 
     """
     Computes free space signal attenuation between the transmitter and the receiver in linear scale.
@@ -237,13 +237,17 @@ def two_ray_pathloss(*, time, ground_reflection, wavelen,
     r1 = ground_reflection(cosine=grazing_angle, wavelen=wavelen, **kwargs)
 
     k = 2 * np.pi / wavelen
-    # pathloss = (0.5/k)**2 * np.absolute(   g0/d0*np.exp(-1j*k*(d0 - time * velocity_pr_0)) +
-    #                                 r1*g1/d1*np.exp(-1j*k*(d1 - time * velocity_pr_1)))**2
-    pathloss = .5/k * (     g0 / d0 * np.exp(-1j * k * (d0 - time * velocity_pr_0)) +
-                        r1 * g1 / d1 * np.exp(-1j * k * (d1 - time * velocity_pr_1)) )
-    # print(">>> pathloss = {}".format(to_power(pathloss)))
+                                    
+    pathloss = .5/k * (g0 / d0 * np.exp(-1j * k * (d0 - time * velocity_pr_0)) +
+    r1 * g1 / d1 * np.exp(-1j * k * (d1 - time * velocity_pr_1)) )
+    # Короче, тут костыль, потому что я не помню, почему где-то ответ возводится в квадрат, а где-то нет,
+    # поэтому я сделал два варианта return.
+    if crutch:
+        return (0.5/k)**2 * np.absolute(   g0/d0*np.exp(-1j*k*(d0 - time * velocity_pr_0)) +
+                r1*g1/d1*np.exp(-1j*k*(d1 - time * velocity_pr_1)))**2
+    else:
+        return to_power(pathloss) if log else pathloss
 
-    return to_power(pathloss) if log else pathloss
 
 # def two_ray_pathloss(*, time, ground_reflection, wavelen,
 #                      tx_pos, tx_dir_theta, tx_dir_phi, tx_velocity, tx_rp,
