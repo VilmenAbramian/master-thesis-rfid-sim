@@ -1,0 +1,157 @@
+%% Пакеты для русского языка
+%----------------------------------------------
+\usepackage{cmap}                   % поиск в PDF
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english,russian]{babel}
+
+
+%% Работа с математикой
+%------------------------------------------------------------------------------
+\usepackage{amsmath, amsfonts,amssymb,amsthm,mathtools}
+\usepackage{icomma}  % "Умная" запятая: --- $0,2$ - число, $0, 2$ - перечисление
+\usepackage{blkarray}
+
+% Эти пакеты содержат символы, отсутствующие при использовании пакета mathtext
+% Совет взят из https://tex.stackexchange.com/a/355726
+\usepackage{tempora}  % Times for numbers in math mode
+\usepackage{newtxmath}  % Times in math mode
+
+\usepackage{bm}  % жирные векторы
+
+% Русские буквы в фомулах. Можно использовать вместо tempora и newtxmath
+% \usepackage{mathtext}
+
+
+
+% Показывать номера только у тех формул, на которые есть \eqref{} в тексте.
+\mathtoolsset{showonlyrefs=true}
+%\usepackage{leqno} % Немуреация формул слева
+
+% Математические операторы:
+\DeclareMathOperator{\sgn}{\mathop{sgn}}
+\newcommand{\defeq}{\stackrel{\textrm{\scriptsize def}}{=}}
+\DeclareMathOperator*{\argmax}{argmax}
+\DeclareMathOperator*{\argmin}{argmin}
+
+
+%% Дополнительные пакеты
+%------------------------------------------------------------------------------
+\usepackage[dvipsnames]{xcolor}
+\usepackage[normalem]{ulem}   % перечеркивание текста с помощью \sout
+
+\usepackage{comment}    % Позволяет убирать блоки текста (добавляет
+                        % окружение comment и команду \excludecomment)
+\usepackage{tcolorbox}
+
+% Определяем окружения для комментирований и заметок
+\ifnumequal{\value{review}}{1}{
+    \usepackage[nowatermark]{fixmetodonotes}
+    \setlength {\marginparwidth }{2cm}
+    \renewcommand{\listnotesname}{\ListOfTodosTitle}
+    \newrobustcmd{\note}[2][]{\ifstrempty{#1}{\colorbox{yellow}{\textit{#2}}}{\colorbox{#1}{\textit{#2}}}}
+    \newenvironment{commentbox}
+    {\begin{center}\begin{tcolorbox}[colback=yellow!20!white,colframe=yellow!80!white]\begin{em}}
+    {\end{em}\end{tcolorbox}\end{center}}
+}{
+    \usepackage[disabled]{fixmetodonotes}
+    \renewcommand{\FIXME}[1]{#1}
+    \newrobustcmd{\note}[2][]{}
+    \excludecomment{commentbox}
+}
+
+
+%%% Нумерация русскими буквами
+%%%   пример:
+%%%     \begin{enumerate}[label=\asbuk*),ref=\asbuk*]
+%%%       \item one
+%%%       \item two
+%%%     \end{enumerate}
+\usepackage{enumitem}
+\makeatletter
+\AddEnumerateCounter{\asbuk}{\russian@alph}{щ}
+\makeatother
+
+\usepackage{color}   % Пакет цветов, для раскраски ссылок
+\usepackage{hyperref}  %
+
+\hypersetup{
+    colorlinks=true, % set true if you want colored links
+    linktoc=all,     % set to all if you want both sections and subsections linked
+    linkcolor=blue,  % choose some color if you want links to stand out
+}
+
+\usepackage{lipsum}  % позволяет вставлять lorem ipsum
+
+
+%% Работа с графикой
+%------------------------------------------------------------------------------
+\usepackage{graphicx}
+\graphicspath{{img/}}
+\setlength\fboxsep{3pt}   % Отступ рамки \fbox{} от рисунка
+\setlength\fboxrule{1pt}  % Толщина линий рамки \fbox{}
+\usepackage{wrapfig}      % Обтекание рисунков текстом
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}   % Для вставки подписей к нескольким картинкам в одной
+
+
+
+%% Работа с таблицами
+%------------------------------------------------------------------------------
+\usepackage{array,tabularx,tabulary,booktabs}
+\usepackage{longtable}  % Длинные таблицы
+\usepackage{multirow}   % Слияние строк в таблице
+
+
+% Теоремы
+%------------------------------------------------------------------------------
+\theoremstyle{plain} % Это стиль по умолчанию, его можно не переопределять.
+\newtheorem{theorem}{Теорема}[section]
+\newtheorem{proposition}{Утверждение}[section]
+\newtheorem{lemma}{Лемма}[section]
+
+\theoremstyle{definition} % "Определение"
+\newtheorem{corollary}{Следствие}[theorem]
+\newtheorem{propcorollary}{Следствие}[proposition]
+\newtheorem{problem}{Задача}[section]
+\newtheorem{definition}{Определение}[section]
+
+\theoremstyle{remark} % "Примечание"
+\newtheorem{remark}{Замечание}[section]
+\newtheorem*{nonum}{Решение}
+% TODO: посмотреть, как в диссертации сделаны теоремы и доказательства
+
+
+%% Программирование
+%------------------------------------------------------------------------------
+\usepackage{etoolbox}  % логические операторы
+\usepackage{listings}
+
+
+%% Библиограция
+\usepackage[
+    backend=biber,      % движок
+    bibencoding=utf8,   % кодировка bib файла
+    sorting=none,       % настройка сортировки списка литературы
+    style=gost-numeric, % стиль цитирования и библиографии (по ГОСТ)
+    language=autobib,   % получение языка из babel/polyglossia, default: autobib
+                        % если ставить autocite или auto, то цитаты в тексте с
+                        % указанием  страницы, получат указание страницы на
+                        % языке оригинала
+    autolang=other,     % многоязычная библиография
+    clearlang=true,     % внутренний сброс поля language, если он совпадает с
+                        % языком из babel/polyglossia
+    defernumbers=true,  % нумерация проставляется после двух компиляций, зато
+                        % позволяет выцеплять библиографию по ключевым словам и
+                        % нумеровать не из большего списка
+    sortcites=true,     % сортировать номера затекстовых ссылок при цитировании
+                        % (если в квадратных скобках несколько ссылок, то
+                        % отображаться будут   отсортированно, а не абы как)
+    doi=true,           % Показывать или нет ссылки на DOI
+    url=true,           % Показывать или нет URL
+    isbn=false          % Показывать или нет ISBN, ISSN, ISRN
+]{biblatex}
+
+\usepackage{csquotes}
+\addbibresource{observe.bib}
