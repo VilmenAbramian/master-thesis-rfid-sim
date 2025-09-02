@@ -1,27 +1,39 @@
-# Python Open Network Simulator
 
-The package provides the kernel for discrete-event simulations in Python 3 language.
+# 📡 master-thesis-rfid-sim
 
-It is designed to be suitable for various tasks in mind, while the first objective is 
-to simulate networks and queueing systems.
+**Имитационная модель RFID системы с подвижной меткой (2022)**
 
-## Completed graduation project
+Старая версия модели, разработанная в рамках магистерской диссертации.
 
-It is my project for master thesis in MIPT.
+## 📌 Описание проекта
+Данный проект представляет собой дискретно-событийную **имитационную модель взаимодействия RFID считывателя и меток**, размещённых на поверхности земли. Модель учитывает движение метки и реализацию команд протокола EPC Gen2.
 
-To install this project, simply use the following:
+Проект был написан для магистерской диссертации и является **предшественником** более продвинутой модели, разработанной для кандидатской диссертации (см. [новый репозиторий](https://github.com/VilmenAbramian/simulation)). Несмотря на упрощения, текущая реализация успешно моделирует ключевые аспекты RFID протокола и служит хорошей основой для понимания логики инвентаризации и передачи данных в мобильной RFID среде.
 
-Open your terminal and then do
+## ⚙️ Основной функционал
 
-> git clone https://github.com/VilmenAbramian/RFID_sim
-> python -m venv .venv
-> .venv/scripts/activate   
->pip install -r requirements.txt    
+- Дискретно-событийное моделирование раундов инвентаризации (Query, QueryRep, Ack, Read и т.д.);
+- Учёт параметра `Q` и вероятности коллизий;
+- Поддержка перемещения метки и динамики зоны видимости;
+- Статистика по вероятности чтения;
+- Наличие простого CLI интерфейса.
 
-After that, to call the help of the simulation model, you can call:
+## English version
 
-> sim start --help
+** RFID System Simulation Model with a Mobile Tag (2022)**
 
-For a test run, you can call:
+An earlier version of the model developed as part of a master's thesis.
 
-> sim start -n 50 --encoding 8 --tari 25 --tid-word-size 256 --tag-offset 5 --reader-offset 5 --altitude 5 -p 29  -s 5 -s 10 -s 15
+## 📌 Project Overview
+
+This project is a discrete-event **simulation model of interaction between an RFID reader and tags** placed on the ground surface. The model takes into account tag movement and implements key commands from the EPC Gen2 protocol.
+
+The project was developed for a master's thesis and serves as a **predecessor** to a more advanced model created for a PhD dissertation (see [new repository](https://github.com/VilmenAbramian/simulation)). Despite its simplified design, this version successfully captures core aspects of the RFID protocol and provides a solid foundation for understanding inventory logic and data transmission in mobile RFID environments.
+
+## ⚙️ Key Features
+
+- Discrete-event simulation of inventory rounds (Query, QueryRep, Ack, Read, etc.);
+- Support for parameter `Q` and collision probability;
+- Tag movement and dynamic visibility zone;
+- Read success probability statistics;
+- Simple CLI interface.
